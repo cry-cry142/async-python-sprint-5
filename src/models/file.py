@@ -7,6 +7,6 @@ from .base import Base
 class File(Base):
     __tablename__ = 'files'
     id = Column(Integer, primary_key=True)
-    file_name = Column(String, unique=True, index=True)
+    file_name = Column(String(100), unique=True, index=True)
     user_id = Column(ForeignKey('users.id'))
     user = relationship('User', back_populates='files')

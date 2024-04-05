@@ -1,6 +1,6 @@
 import urllib
 from typing import Annotated, List
-from fastapi import APIRouter, UploadFile, HTTPException, status, Depends, Header
+from fastapi import APIRouter, UploadFile, HTTPException, status, Depends, Header, Request
 from fastapi.responses import Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -55,7 +55,10 @@ async def upload(
     *,
     db: AsyncSession = Depends(get_session),
     user=Depends(get_auth_user),
+    req: Request
 ):
+    text = await path.read()
+    print(text)
     result = await file_crud.create(db=db, path=path, active_user=user)
     if not result:
         raise HTTPException(

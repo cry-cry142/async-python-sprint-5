@@ -25,7 +25,9 @@ async def auth(
     return user
 
 
-@router.post('/', response_model=user_schema.User)
+@router.post(
+    '/', response_model=user_schema.User, status_code=status.HTTP_201_CREATED
+)
 async def create(
     user_in: user_schema.UserCreate,
     *,
